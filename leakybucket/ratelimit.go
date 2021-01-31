@@ -16,9 +16,10 @@ type state struct {
 
 type limiter struct {
 	state unsafe.Pointer
-	//nolint:ignore U1000 Padding is unused but it is crucial to maintain performance
+	//Padding is unused but it is crucial to maintain performance
 	// of this rate limiter in case of collocation with other frequently accessed memory.
-	padding [56]byte // cache line size - state pointer size = 64 - 8; created to avoid false sharing.
+	// cache line size - state pointer size = 64 - 8; created to avoid false sharing.
+	padding [56]byte //nolint
 
 	perRequest *uAtomic.Int64
 	maxSlack   time.Duration
